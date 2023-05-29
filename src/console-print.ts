@@ -1,3 +1,4 @@
+import { Icon } from "./model/icon";
 import { Color } from "./model/color";
 
 const EMPTY_STRING = '';
@@ -20,7 +21,7 @@ export class ConsolePrint {
     public log(...strings: string[]): void {
         const fg = Color.WHITE;
         const bg = Color.TRANSPARENT;
-        const icon = '\u25ce'
+        const icon = Icon.LOG;
         const groupTile = ` ${this.logsTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
@@ -41,7 +42,7 @@ export class ConsolePrint {
     public warn(...strings: string[]): void {
         const fg = Color.YELLOW;
         const bg = Color.TRANSPARENT;
-        const icon = '\u26a0'
+        const icon = Icon.WARNING;
         const groupTile = ` ${this.warningsTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
@@ -62,7 +63,7 @@ export class ConsolePrint {
     public error(...strings: string[]): void {
         const fg = Color.RED;
         const bg = Color.TRANSPARENT;
-        const icon = '\u26D4'
+        const icon = Icon.ERROR;
         const groupTile = ` ${this.errorsTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
@@ -83,7 +84,7 @@ export class ConsolePrint {
     public info(...strings: string[]): void {
         const fg = Color.BLUE;
         const bg = Color.TRANSPARENT;
-        const icon = '\u2139'
+        const icon = Icon.INFO;
         const groupTile = ` ${this.informationsTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
@@ -104,7 +105,7 @@ export class ConsolePrint {
     public success(...strings: string[]): void {
         const fg = Color.GREEN;
         const bg = Color.TRANSPARENT;
-        const icon = '\u2713'
+        const icon = Icon.SUCCESS;
         const groupTile = ` ${this.successesTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
@@ -125,7 +126,7 @@ export class ConsolePrint {
     public debug(...strings: string[]): void {
         const fg = Color.MAGENTA;
         const bg = Color.TRANSPARENT;
-        const icon = '\u1367'
+        const icon = Icon.DEBUG;
         const groupTile = ` ${this.debugsTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
@@ -146,7 +147,7 @@ export class ConsolePrint {
     public assert(...strings: string[]): void {
         const fg = Color.CYAN;
         const bg = Color.TRANSPARENT;
-        const icon = '\u0021'
+        const icon = Icon.ASSERT;
         const groupTile = ` ${this.assertsTitle}`
         if (strings.length > 1) {
             const c = this.getColorString(fg, bg)
