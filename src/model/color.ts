@@ -1,11 +1,12 @@
-enum Color {
-    white = '\x1b[37m',
-    black = '\x1b[30m',
-    red = '\x1b[31m',
-    green = '\x1b[32m',
-    yellow = '\x1b[33m',
-    blue = '\x1b[34m',
-    magenta = '\x1b[35m',
-    cyan = '\x1b[36m',
-    reset = '\x1b[0m'
+export enum Color {
+    WHITE = "\x1b[37m",
+    BLACK = "\x1b[30m",
+    RED = "\x1b[31m",
+    GREEN = "\x1b[32m",
+    YELLOW = "\x1b[33m",
+    BLUE = "\x1b[34m",
+    MAGENTA = "\x1b[35m",
+    CYAN = "\x1b[36m",
+    TRANSPARENT = "",
+    RESET = "\x1b[0m"
 }
