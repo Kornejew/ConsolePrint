@@ -9,7 +9,171 @@ export class ConsolePrint {
     debugsTitle = 'DEBUG'
     assertsTitle = 'ASSERT'
 
-    #getColor(foregroundColor = '', backgroundColor = '') {
+    public clear() {
+        console.clear()
+    }
+
+    public log(...strings: string[]): void {
+        const fg = 'white'
+        const bg = ''
+        const icon = '\u25ce'
+        const groupTile = ` ${this.logsTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item, this.getColorReset())
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`)
+        }
+    }
+
+    public warn(...strings: string[]): void {
+        const fg = 'yellow'
+        const bg = ''
+        const icon = '\u26a0'
+        const groupTile = ` ${this.warningsTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item, this.getColorReset())
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
+        }
+    }
+
+    public error(...strings: string[]): void {
+        const fg = 'red'
+        const bg = ''
+        const icon = '\u26D4'
+        const groupTile = ` ${this.errorsTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item)
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
+        }
+    }
+
+    public info(...strings: string[]): void {
+        const fg = 'blue'
+        const bg = ''
+        const icon = '\u2139'
+        const groupTile = ` ${this.informationsTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item)
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
+        }
+    }
+
+    public success(...strings: string[]): void {
+        const fg = 'green'
+        const bg = ''
+        const icon = '\u2713'
+        const groupTile = ` ${this.successesTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item)
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
+        }
+    }
+
+    public debug(...strings: string[]): void {
+        const fg = 'magenta'
+        const bg = ''
+        const icon = '\u1367'
+        const groupTile = ` ${this.debugsTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item)
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
+        }
+    }
+
+    public assert(...strings: string[]): void {
+        const fg = 'cyan'
+        const bg = ''
+        const icon = '\u0021'
+        const groupTile = ` ${this.assertsTitle}`
+        if (strings.length > 1) {
+            const c = this.getColor(fg, bg)
+            console.group(c, (this.useIcons ? icon : '') + groupTile)
+            const nl = this.closeByNewLine
+            this.closeByNewLine = false
+            strings.forEach((item) => {
+                this.print(fg, bg, item)
+            })
+            this.closeByNewLine = nl
+            console.groupEnd()
+            if (nl) console.log()
+        } else {
+            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
+        }
+    }
+
+    private print(foregroundColor = 'white', backgroundColor = 'black', ...strings: string[]) {
+        const c = this.getColor(foregroundColor, backgroundColor)
+        // turns objects into printable strings
+        strings = strings.map((item) => {
+            if (typeof item === 'object') item = JSON.stringify(item)
+            return item
+        })
+        console.log(c, strings.join(''), this.getColorReset())
+        if (this.closeByNewLine) {
+            console.log('');
+        }
+    }
+
+    private getColor(foregroundColor = '', backgroundColor = '') {
         let fgc = '\x1b[37m'
         switch (foregroundColor.trim().toLowerCase()) {
             case 'black':
@@ -69,169 +233,7 @@ export class ConsolePrint {
         return `${fgc}${bgc}`
     }
 
-    #getColorReset() {
+    private getColorReset() {
         return '\x1b[0m'
-    }
-
-    clear() {
-        console.clear()
-    }
-
-    print(foregroundColor = 'white', backgroundColor = 'black', ...strings: string[]) {
-        const c = this.#getColor(foregroundColor, backgroundColor)
-        // turns objects into printable strings
-        strings = strings.map((item) => {
-            if (typeof item === 'object') item = JSON.stringify(item)
-            return item
-        })
-        console.log(c, strings.join(''), this.#getColorReset())
-        if (this.closeByNewLine) console.log('')
-    }
-
-    log(...strings: string[]) {
-        const fg = 'white'
-        const bg = ''
-        const icon = '\u25ce'
-        const groupTile = ` ${this.logsTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item, this.#getColorReset())
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`)
-        }
-    }
-
-    warn(...strings: string[]) {
-        const fg = 'yellow'
-        const bg = ''
-        const icon = '\u26a0'
-        const groupTile = ` ${this.warningsTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item, this.#getColorReset())
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
-        }
-    }
-
-    error(...strings: string[]) {
-        const fg = 'red'
-        const bg = ''
-        const icon = '\u26D4'
-        const groupTile = ` ${this.errorsTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item)
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
-        }
-    }
-
-    info(...strings: string[]) {
-        const fg = 'blue'
-        const bg = ''
-        const icon = '\u2139'
-        const groupTile = ` ${this.informationsTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item)
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
-        }
-    }
-
-    success(...strings: string[]) {
-        const fg = 'green'
-        const bg = ''
-        const icon = '\u2713'
-        const groupTile = ` ${this.successesTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item)
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
-        }
-    }
-
-    debug(...strings: string[]) {
-        const fg = 'magenta'
-        const bg = ''
-        const icon = '\u1367'
-        const groupTile = ` ${this.debugsTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item)
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
-        }
-    }
-
-    assert(...strings: string[]) {
-        const fg = 'cyan'
-        const bg = ''
-        const icon = '\u0021'
-        const groupTile = ` ${this.assertsTitle}`
-        if (strings.length > 1) {
-            const c = this.#getColor(fg, bg)
-            console.group(c, (this.useIcons ? icon : '') + groupTile)
-            const nl = this.closeByNewLine
-            this.closeByNewLine = false
-            strings.forEach((item) => {
-                this.print(fg, bg, item)
-            })
-            this.closeByNewLine = nl
-            console.groupEnd()
-            if (nl) console.log()
-        } else {
-            this.print(fg, bg, `${(this.useIcons ? `${icon} ` : '')}${strings[0]}`);
-        }
     }
 }
