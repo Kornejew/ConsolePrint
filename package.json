@@ -1,0 +1,27 @@
+{
+  "name": "@kornejew/consoleprint",
+  "version": "1.0.0",
+  "description": "A package providing different methods and utilitys for pritty console output and logging.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Kornejew/ConsolePrint.git"
+  },
+  "keywords": [
+    "console",
+    "pritty",
+    "npm"
+  ],
+  "author": "Dennis Kornejew",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kornejew/ConsolePrint/issues"
+  },
+  "homepage": "https://github.com/Kornejew/ConsolePrint#readme",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}
