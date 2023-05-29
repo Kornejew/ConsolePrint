@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A package providing different methods and utilitys for pritty console output and logging.",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist/*"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
